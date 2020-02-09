@@ -18,11 +18,19 @@ class WellnessProfessionals(models.Model):
     class Meta:
         db_table = '"wellness_prof"'
 
+    @property
     def getFullName(self):
         if (self.title is not None and self.title != ""):
             return self.title + " " + self.first_name + " " + self.last_name
         else:
             return self.first_name + " " + self.last_name        
+    
+    @property
+    def getFullAddress(self):
+        if (self.address_2 is not None and self.address_2 != ""):
+            return self.address_1 + " " + self.address_2 + " " + self.city + ", " + self.state + " " + self.zip
+        else:
+            return self.address_1 + " " + self.city + ", " + self.state + " " + self.zip
 
     def __str__(self):
         return self.getFullName()

@@ -10,27 +10,27 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{% static 'search/style.css' %}">
 
-        {% block title %}<title>WellnessConnect.V1</title>{% endblock title%}
+        <title>{% block title %}WellnessConnect.V1{% endblock title%}</title>
     </head>
     <body>      
-        {% block content %}
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Wellness Connect</a>
+            <a class="navbar-brand" href="{% url 'search:index' %}">Wellness Connect</a>
         </nav>        
         <div class="container">
+            {% block content %}
             <div class="row justify-content-center mt-3">
                 <span id="span-connect">Connect Well.</span><span id="span-live">Live Well.</span>
             </div>
             <div class="row justify-content-center mt-3">
-                <form class="form-inline" action="" method="get">
-                    <input type="text" class="form-control" name="" id="" placeholder="Enter your zip...">
+                <form class="form-inline" action="{% url 'search:searchprof' %}" method="get">
+                    <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Enter your zip..." value="08075">
                     <div class="col input-group-append">
-                        <button id="btnSearch" class="btn btn-outline-secondary" type="button" id="button-addon2">Connect</button>
+                        <button id="btnSearch" class="btn btn-outline-secondary" type="submit" id="button-addon2">Connect</button>
                     </div>
                 </form>
             </div>
+            {% endblock content %}
         </div>
-        {% endblock content %}
 
         
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
