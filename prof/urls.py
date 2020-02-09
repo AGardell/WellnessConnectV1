@@ -3,5 +3,5 @@ from . import views
 
 app_name = "prof"
 urlpatterns = [
-    path('', views.Detail, name='detail')
+    path('<int:prof_id>', views.Detail, name='detail')
 ]

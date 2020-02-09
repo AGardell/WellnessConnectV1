@@ -10,7 +10,7 @@
         <div class="col-md-6">    
             {% for prof in professionals %}
             <ul class="list-group" id="list-tab" role="tablist">
-                <a href="#" id='search-result' class="list-group-item list-group-item-action">
+                <a href="{% url 'prof:detail' prof.id %}" id='search-result' class="list-group-item list-group-item-action">
                     <p id='search-result-name'>{{ prof.getFullName }}</p>
                     <p class='search-result-contents'>{{ prof.getFullAddress }}</p>
                     <p class='search-result-contents'>{{ prof.specialties }}</p>
