@@ -44,7 +44,7 @@ if ($('#contact-form-submit').length > 0)
             beforeSend: function(xhr) {
                 if (!this.crossdomain) {
                     xhr.setRequestHeader('X-CSRFToken', csrfToken);
-                    alert('Token set!');
+                    //alert('Token set!');
                 }
             },
             method: "POST",
