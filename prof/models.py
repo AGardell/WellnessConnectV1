@@ -12,6 +12,8 @@ class WellnessProfessional(models.Model):
     zip = models.CharField(max_length=5)
     credentials = models.TextField(default="", null=True, blank=True)
     specialties = models.CharField(max_length=255, null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
+    profile_pic = models.ImageField(upload_to='prof/profile_pic/', null=True, blank=True)
     date_joined = models.DateField(auto_now_add=True)
 
     class Meta:

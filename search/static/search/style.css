@@ -1,3 +1,7 @@
+.search-input {
+    box-shadow: 5px 3px 4px 0px lightgrey
+}
+
 #span-connect {
     margin-right: .5em;
     font-size: 75px;
@@ -25,4 +29,8 @@
 
 .search-result-contents {
     margin-bottom: 0;
+}
+
+.errorlist {
+    color: red;
 }

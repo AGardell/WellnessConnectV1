@@ -1,5 +1,54 @@
 {% extends "search/base.html" %}
+{% load static %}
+
+{% block stylesheet %}
+<link rel="stylesheet" type="text/css" href="{% static 'prof/style.css' %}">
+{% endblock stylesheet %}
 
 {% block content %}
-<h1>You have reached the professional detail page!!!</h1>
+<div class="row mt-4">
+    <div class="col-6">
+        <h1>{{ prof.getFullName }}</h1>
+        <p>{{ prof.getFullAddress }}</p>
+        <p>{{ prof.specialties }}</p>
+        <p class="detail-text">{{ prof.credentials }}</p>
+        <p class="detail-text">{{ prof.bio }}</p>
+    </div>
+    <div class="col-6">
+        {% if prof.profile_pic %}
+        <div class="row">
+            <img src="{{ prof.profile_pic.url }}" alt="Image not found." class="img-thumbnail">
+        </div>
+        {% endif %}
+        <div class="row">
+            <button class="btn btn-primary mt-3" data-toggle="modal" data-target="#contact-prof-modal">
+                Contact Me
+            </button>
+        </div>
+    </div>
+    <div class="modal fade" id="contact-prof-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Contact {{ prof.getFullName}}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id='modal-contents' class="modal-body">
+              <div class="container">
+                <form id="contact-form" action="{% url 'prof:detail' prof.id %}" method="post">
+                  {% csrf_token %}
+                  {{ contactForm.as_p }}                  
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button id='contact-form-submit' type="button" class="btn btn-primary">Send</button>  
+            </div>
+          </div>
+        </div>
+      </div>    
+</div>
 {% endblock content %}
