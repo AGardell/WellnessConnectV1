@@ -17,10 +17,10 @@
     <div class="col-6">
         {% if prof.profile_pic %}
         <div class="row">
-            <img src="{{ prof.profile_pic.url }}" alt="Image not found." class="img-thumbnail">
+            <img id="prof-image" src="{{ prof.profile_pic.url }}" alt="Image not found." class="img-fluid img-thumbnail mx-auto d-block">
         </div>
         {% endif %}
-        <div class="row">
+        <div class="row  d-flex justify-content-center">
             <button class="btn btn-primary mt-3" data-toggle="modal" data-target="#contact-prof-modal">
                 Contact Me
             </button>

@@ -1,3 +1,7 @@
 .detail-text {
     white-space: pre-wrap;
 }
+
+#prof-image {
+    max-width: 70%;
+}

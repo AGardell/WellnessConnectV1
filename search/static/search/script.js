@@ -38,8 +38,6 @@ if ($('#contact-form-submit').length > 0)
     $('#contact-form-submit').click((e) => {
         e.preventDefault();
         var contactForm = $("#contact-form");
-        //var contactForm = $("#contact-form")[0];
-        //var fd = new FormData(contactForm)
         $.ajax({
             beforeSend: function(xhr) {
                 if (!this.crossdomain) {
@@ -50,17 +48,35 @@ if ($('#contact-form-submit').length > 0)
             method: "POST",
             url: contactForm.attr('action'),
             data: contactForm.serialize(),
-            //data: fd,
             success: function (response) {
                 $("#contact-prof-modal").modal('hide');
-                //alert(JSON.stringify(response));
                 alert('SUCCESS: ' + response.responseText);
             },
             error: function (response) {
-                //alert(JSON.stringify(response));
                 console.log('FAILURE: ' + JSON.stringify(response));
                 $('#contact-form').html(response.responseText);
             }
         });
     })
 };
+
+// check to make sure passwords match on sign up page
+if($("#password, #retype-password").length > 0)
+{
+
+    $("#password, #retype-password").keyup(function (e) {
+        var password = $("#password").val();
+        var password2 = $("#retype-password").val();
+        if (password != password2)
+        {
+            $("#retype-password").css('background-color','lightpink');
+            $(".password-matched").hide();
+            $("#btnSearch").prop("disabled",true);
+        }
+        else {
+            $("#retype-password").css('background-color','white');
+            $(".password-matched").show();
+            $("#btnSearch").prop("disabled",false);
+        }
+    });
+}

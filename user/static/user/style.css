@@ -1,0 +1,13 @@
+#view-password-check {
+    display: flex;
+    align-items: center;
+}
+
+.password-matched {
+    position: absolute;
+    margin-top: 12px;
+    margin-left: 36em;
+    background-color:white;
+    color: limegreen;
+    display: none;
+}
