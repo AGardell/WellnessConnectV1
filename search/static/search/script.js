@@ -61,20 +61,20 @@ if ($('#contact-form-submit').length > 0)
 };
 
 // check to make sure passwords match on sign up page
-if($("#password, #retype-password").length > 0)
+if($("#id_password, #id_retype_password").length > 0)
 {
 
-    $("#password, #retype-password").keyup(function (e) {
-        var password = $("#password").val();
-        var password2 = $("#retype-password").val();
+    $("#id_password, #id_retype_password").keyup(function (e) {
+        var password = $("#id_password").val();
+        var password2 = $("#id_retype_password").val();
         if (password != password2)
         {
-            $("#retype-password").css('background-color','lightpink');
+            $("#id_retype_password").css('background-color','lightpink');
             $(".password-matched").hide();
             $("#btnSearch").prop("disabled",true);
         }
         else {
-            $("#retype-password").css('background-color','white');
+            $("#id_retype_password").css('background-color','white');
             $(".password-matched").show();
             $("#btnSearch").prop("disabled",false);
         }

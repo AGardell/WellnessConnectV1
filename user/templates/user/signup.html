@@ -1,5 +1,7 @@
 {% extends "search/base.html" %}
 {% load static %}
+{% load widget_tweaks %}
+
 
 {% block stylesheet %}
 <link rel="stylesheet" type="text/css" href="{% static 'user/style.css' %}">
@@ -10,98 +12,47 @@
     <p>Please enter your information below to join!</p>
 </div>
 <div class="row justify-content-center mt-3">
-    <form action="{% url 'user:signup' %}" method="POST">
+    <form id="signup-form" action="{% url 'user:signup' %}" method="POST">
         {% csrf_token %}
         <div class="form-group">
-            <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
-        </div>
-        <div class="form-group">
-            <i class="far fa-check-square password-matched"></i>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+            {{ form.username|add_class:"form-control"|attr:"placeholder:Username" }}
+            {% for error in form.username.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
         </div>   
         <div class="form-group">
-            <i class="far fa-check-square password-matched"></i>
-            <input type="password" class="form-control" name="retype-password" id="retype-password" placeholder="Retype Password" required>
-        </div>           
-        <div class="form-group">
-            <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+            {{ form.password|add_class:"form-control"|attr:"placeholder:Password" }} 
         </div>
         <div class="form-group">
-            <input type="text" class="form-control" name="firstname" id="firstname" placeholder="First Name" required>
-        </div>
+            {{ form.retype_password|add_class:"form-control"|attr:"placeholder:Retype Password" }} 
+        </div> 
         <div class="form-group">
-            <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Last Name" required>
-        </div>                          
+            {{ form.email|add_class:"form-control"|attr:"placeholder:Email" }} 
+        </div>       
         <div class="form-group">
-            <input type="text" class="form-control" name="address1" id="address1" placeholder="Address 1" required>
+            {{ form.firstName|add_class:"form-control"|attr:"placeholder:First Name" }} 
         </div>     
         <div class="form-group">
-            <input type="text" class="form-control" name="address2" id="address2" placeholder="Address 2">
-        </div>                   
+            {{ form.lastName|add_class:"form-control"|attr:"placeholder:Last Name" }}
+            <div>{{ form.lastName.errors }}</div>
+        </div>                                       
+        <div class="form-group">
+            {{ form.address_1|add_class:"form-control"|attr:"placeholder:Address" }} 
+        </div>         
+        <div class="form-group">
+            {{ form.address_2|add_class:"form-control"|attr:"placeholder:Address Two" }} 
+        </div>  
         <div class="form-row">
             <div class="form-group col-md-6">
-              <input type="text" class="form-control" id="city" name="city" placeholder="City" required>
-            </div>
-            <div class="form-group col-md-4">
-              <select id="state" class="form-control" name="state" required>
-                <option selected>State</option>
-                <option value="AL">AL</option>
-                <option value="AK">AK</option>
-                <option value="AR">AR</option>	
-                <option value="AZ">AZ</option>
-                <option value="CA">CA</option>
-                <option value="CO">CO</option>
-                <option value="CT">CT</option>
-                <option value="DC">DC</option>
-                <option value="DE">DE</option>
-                <option value="FL">FL</option>
-                <option value="GA">GA</option>
-                <option value="HI">HI</option>
-                <option value="IA">IA</option>	
-                <option value="ID">ID</option>
-                <option value="IL">IL</option>
-                <option value="IN">IN</option>
-                <option value="KS">KS</option>
-                <option value="KY">KY</option>
-                <option value="LA">LA</option>
-                <option value="MA">MA</option>
-                <option value="MD">MD</option>
-                <option value="ME">ME</option>
-                <option value="MI">MI</option>
-                <option value="MN">MN</option>
-                <option value="MO">MO</option>	
-                <option value="MS">MS</option>
-                <option value="MT">MT</option>
-                <option value="NC">NC</option>	
-                <option value="NE">NE</option>
-                <option value="NH">NH</option>
-                <option value="NJ">NJ</option>
-                <option value="NM">NM</option>			
-                <option value="NV">NV</option>
-                <option value="NY">NY</option>
-                <option value="ND">ND</option>
-                <option value="OH">OH</option>
-                <option value="OK">OK</option>
-                <option value="OR">OR</option>
-                <option value="PA">PA</option>
-                <option value="RI">RI</option>
-                <option value="SC">SC</option>
-                <option value="SD">SD</option>
-                <option value="TN">TN</option>
-                <option value="TX">TX</option>
-                <option value="UT">UT</option>
-                <option value="VT">VT</option>
-                <option value="VA">VA</option>
-                <option value="WA">WA</option>
-                <option value="WI">WI</option>	
-                <option value="WV">WV</option>
-                <option value="WY">WY</option>
-              </select>
-            </div>
+                {{ form.city|add_class:"form-control"|attr:"placeholder:City" }} 
+            </div> 
             <div class="form-group col-md-2">
-              <input type="text" class="form-control" id="zip" name="zip" placeholder="Zip" required>
-            </div>
-          </div>                           
+                {{ form.state|add_class:"form-control"|attr:"placeholder:State" }} 
+            </div>            
+            <div class="form-group col-md-4">
+                {{ form.zipcode|add_class:"form-control"|attr:"placeholder:Zip" }} 
+            </div>              
+        </div>               
         <div class="form-group row justify-content-center">
             <button id="btnSearch" class="btn btn-outline-secondary" type="submit">Sign Up</button>
         </div>

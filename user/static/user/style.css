@@ -11,3 +11,7 @@
     color: limegreen;
     display: none;
 }
+
+#signup-form {
+    width: 50%;
+}
