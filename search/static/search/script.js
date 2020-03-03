@@ -70,12 +70,15 @@ if($("#id_password, #id_retype_password").length > 0)
         if (password != password2)
         {
             $("#id_retype_password").css('background-color','lightpink');
-            $(".password-matched").hide();
             $("#btnSearch").prop("disabled",true);
         }
-        else {
+        else if ((password != "" && password2 != "") && (password == password2))
+        {
+            $("#id_retype_password").css('background-color','lightgreen');
+            $("#btnSearch").prop("disabled",false);
+        }
+        else if (password == "" && password2 == "") {
             $("#id_retype_password").css('background-color','white');
-            $(".password-matched").show();
             $("#btnSearch").prop("disabled",false);
         }
     });

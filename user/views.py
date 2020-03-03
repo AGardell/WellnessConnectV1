@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
 from django.contrib import messages
 from .models import Member
 from .forms import SignUpForm
@@ -7,6 +8,11 @@ from .forms import SignUpForm
 # Create your views here.
 def Login(request):
     return render(request, 'user/login.html')
+
+def Logout(request):
+    logout(request)
+    messages.success(request, "Successfully logged out")
+    return render(request, 'search/base.html')
 
 def Signup(request):
     if (request.method == 'POST'):
@@ -23,7 +29,7 @@ def Signup(request):
             user.member.zip = request.POST.get("zipcode")
             user.save()
             messages.add_message(request, messages.SUCCESS, f"Welcome {user.first_name}! Your account has been created, please log in now!")
-            return render(request, 'user/signup.html')
+            return render(request, 'user/login.html')
         else:
             return render(request, 'user/signup.html', {'form':form})
     else:
