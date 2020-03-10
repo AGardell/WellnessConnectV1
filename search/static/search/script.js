@@ -31,34 +31,34 @@ else if ($('navbar-search').is(':hidden')) {
 }
 
 // Make AJAX request to send email to wellness professional
-if ($('#contact-form-submit').length > 0)
-{
-    var csrfToken = getCookie('csrftoken');
+// if ($('#contact-form-submit').length > 0)
+// {
+//     var csrfToken = getCookie('csrftoken');
     
-    $('#contact-form-submit').click((e) => {
-        e.preventDefault();
-        var contactForm = $("#contact-form");
-        $.ajax({
-            beforeSend: function(xhr) {
-                if (!this.crossdomain) {
-                    xhr.setRequestHeader('X-CSRFToken', csrfToken);
-                    //alert('Token set!');
-                }
-            },
-            method: "POST",
-            url: contactForm.attr('action'),
-            data: contactForm.serialize(),
-            success: function (response) {
-                $("#contact-prof-modal").modal('hide');
-                alert('SUCCESS: ' + response.responseText);
-            },
-            error: function (response) {
-                console.log('FAILURE: ' + JSON.stringify(response));
-                $('#contact-form').html(response.responseText);
-            }
-        });
-    })
-};
+//     $('#contact-form-submit').click((e) => {
+//         e.preventDefault();
+//         var contactForm = $("#contact-form");
+//         $.ajax({
+//             beforeSend: function(xhr) {
+//                 if (!this.crossdomain) {
+//                     xhr.setRequestHeader('X-CSRFToken', csrfToken);
+//                     //alert('Token set!');
+//                 }
+//             },
+//             method: "POST",
+//             url: contactForm.attr('action'),
+//             data: contactForm.serialize(),
+//             success: function (response) {
+//                 $("#contact-prof-modal").modal('hide');
+//                 alert('SUCCESS: ' + response.responseText);
+//             },
+//             error: function (response) {
+//                 console.log('FAILURE: ' + JSON.stringify(response));
+//                 $('#contact-form').html(response.responseText);
+//             }
+//         });
+//     })
+// };
 
 // check to make sure passwords match on sign up page
 if($("#id_password, #id_retype_password").length > 0)

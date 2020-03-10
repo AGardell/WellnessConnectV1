@@ -6,7 +6,7 @@
     <p>Please enter your username and password below:</p>
 </div>
 <div class="row justify-content-center mt-3">
-    <form action="{% url 'search:index' %}" method="post">
+    <form action="{% url 'user:login' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
             <input type="text" class="search-input form-control" name="username" id="username" placeholder="Username">

@@ -5,3 +5,7 @@
 #prof-image {
     max-width: 70%;
 }
+
+#prof-image-column {
+    align-items: center;
+}

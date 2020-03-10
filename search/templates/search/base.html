@@ -30,7 +30,7 @@
                           My Profile
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <h4 class="dropdown-item">Hello {{ request.user.first_name }}!</h4>
+                            <h4 class="dropdown-header">Hello {{ request.user.first_name }}!</h4>
                             <a class="dropdown-item" href="#">Edit My Profile</a>
                             <a class="dropdown-item" href="#">View My Team</a>
                             <a class="dropdown-item" href="#">View My Messages</a>
@@ -64,6 +64,13 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+                {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>                
                 {% endif %}
                 {% endfor %}
             </ul>

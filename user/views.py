@@ -1,13 +1,23 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login, authenticate
 from django.contrib import messages
 from .models import Member
 from .forms import SignUpForm
 
 # Create your views here.
 def Login(request):
-    return render(request, 'user/login.html')
+    if (request.method == 'POST'):
+        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+        if (user is not None):
+            login(request, user)
+            messages.success(request, f"Welcome {user.first_name}")
+            return render(request, 'search/base.html')
+        else:
+            messages.error(request, "Invalid Username and/or Password. Please try again.")
+            return render(request, 'user/login.html')
+    else:
+        return render(request, 'user/login.html')
 
 def Logout(request):
     logout(request)
