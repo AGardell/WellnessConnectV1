@@ -30,35 +30,74 @@ else if ($('navbar-search').is(':hidden')) {
     $('$navbar-search').show();
 }
 
+// overwrite modal open functionality
+// clear the message if one exists
+if ($('#send-message-modal').length > 0)
+{
+    $('#send-message-modal').click((e) => {
+        e.preventDefault();
+        ClearModal();
+        $('#contact-prof-modal').modal('show');
+    })
+}
+
+function ClearModal() {
+    $('#contact-prof-result-message').hide();
+    $('.form-group .form-control').val('');
+    ClearModalErrors();
+};
+
+function ClearModalErrors() {
+    $('.modal-error').html('');
+    $('#contact-prof-result-message').removeClass();
+}
+
 // Make AJAX request to send email to wellness professional
-// if ($('#contact-form-submit').length > 0)
-// {
-//     var csrfToken = getCookie('csrftoken');
+if ($('#contact-form-submit').length > 0)
+{
+    var csrfToken = getCookie('csrftoken');
     
-//     $('#contact-form-submit').click((e) => {
-//         e.preventDefault();
-//         var contactForm = $("#contact-form");
-//         $.ajax({
-//             beforeSend: function(xhr) {
-//                 if (!this.crossdomain) {
-//                     xhr.setRequestHeader('X-CSRFToken', csrfToken);
-//                     //alert('Token set!');
-//                 }
-//             },
-//             method: "POST",
-//             url: contactForm.attr('action'),
-//             data: contactForm.serialize(),
-//             success: function (response) {
-//                 $("#contact-prof-modal").modal('hide');
-//                 alert('SUCCESS: ' + response.responseText);
-//             },
-//             error: function (response) {
-//                 console.log('FAILURE: ' + JSON.stringify(response));
-//                 $('#contact-form').html(response.responseText);
-//             }
-//         });
-//     })
-// };
+    $('#contact-form-submit').click((e) => {
+        e.preventDefault();
+        var contactForm = $("#contact-form");
+        $.ajax({
+            beforeSend: function(xhr) {
+                if (!this.crossdomain) {
+                    xhr.setRequestHeader('X-CSRFToken', csrfToken);
+                }
+            },
+            method: "POST",
+            url: contactForm.attr('action'),
+            data: contactForm.serialize(),
+            success: function (response) {
+                if (response['success'])
+                {
+                    ClearModalErrors();
+                    $('#contact-prof-modal').modal('hide');
+                    $('#contact-prof-success-message').addClass('alert alert-success fade show');
+                    $('#contact-prof-success-message').html('Message Sent! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>');
+                }
+                else if (response['error'])
+                {
+                    ClearModalErrors();
+                    $('#contact-prof-result-message').addClass('alert alert-danger fade show');
+                    $('#contact-prof-result-message').html('Oops! We encountered an error!');
+                    $('#contact-prof-result-message').show();
+                    
+                    for (var field in response['error'])
+                    {
+                        $('#error-' + field).html(response['error'][field]);  
+                    }
+                                     
+                }
+            },
+            error: function (response) {
+                //console.log('FAILURE: ' + JSON.stringify(response));
+                $('#contact-form').html(response.responseText);
+            }
+        });
+    })
+};
 
 // check to make sure passwords match on sign up page
 if($("#id_password, #id_retype_password").length > 0)

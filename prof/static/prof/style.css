@@ -9,3 +9,9 @@
 #prof-image-column {
     align-items: center;
 }
+
+.modal-error {
+    font-size: .8em;
+    padding-top: 3px;
+    color: red;
+}

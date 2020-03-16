@@ -7,6 +7,8 @@
 {% endblock stylesheet %}
 
 {% block content %}
+<div id="contact-prof-success-message" role="alert">  
+</div>
 <div id="prof-image-column" class="row mt-4">
     <div class="col-6">
         <h1>{{ prof.getFullName }}</h1>
@@ -22,7 +24,7 @@
         </div>
         {% endif %}
         <div class="row d-flex justify-content-center">
-            <button class="btn btn-primary mt-3" data-toggle="modal" data-target="#contact-prof-modal">
+            <button id="send-message-modal" class="btn btn-primary mt-3">
                 Contact Me
             </button>
         </div>
@@ -31,42 +33,37 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Contact {{ prof.getFullName}}</h5>
+              <h5 class="modal-title" >Contact {{ prof.getFullName}}</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div id='modal-contents' class="modal-body">
               <div class="container">
+                <div id="contact-prof-result-message" class="alert alert-success fade show" role="alert">
+                </div>
                 <form id="contact-form" action="{% url 'prof:detail' prof.id %}" method="post">
                   {% csrf_token %}
                   <div class="form-group">
-                  {{ contactForm.first_name|add_class:"form-control"|attr:"placeholder:First Name" }}
-                  {% for error in contactForm.first_name.errors %}
-                      <p>{{ error }}</p>
-                  {% endfor %}
+                    {{ contactForm.first_name|add_class:"form-control"|attr:"placeholder:First Name" }}
+                      <p id='error-first_name' class='modal-error'>{{ error }}</p>
                   </div>   
                   <div class="form-group">
                     {{ contactForm.last_name|add_class:"form-control"|attr:"placeholder:Last Name" }}
-                    {% for error in contactForm.last_name.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
+                      <p id='error-last_name' class='modal-error'>{{ error }}</p>
                   </div>  
                   <div class="form-group">
                     {{ contactForm.email|add_class:"form-control"|attr:"placeholder:Email" }}
-                    {% for error in contactForm.email.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
+                      <p id='error-email' class='modal-error'>{{ error }}</p>
                   </div>
                   <div class="form-group">
                     {{ contactForm.message|add_class:"form-control"|attr:"placeholder:Enter your message..." }}
-                    {% for error in contactForm.message.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                  </div>   
-                  <button id='contact-form-submit' type="submit" class="btn btn-primary">Send</button>                                     
+                      <p id='error-message' class='modal-error'>{{ error }}</p>
+                  </div>                                       
                 </form>
               </div>
+            </div>
+              <button id='contact-form-submit' type="button" class="btn btn-primary">Send</button>  
             </div>
           </div>
         </div>

@@ -12,12 +12,9 @@ def Detail(request, prof_id):
     if (request.method == 'POST'):
         contactForm = ContactForm(request.POST)
         if contactForm.is_valid():
-            # response = HttpResponse("Message Sent!")
-            # response.status_code = 200
-            # return response
-            messages.success(request, 'Message Sent!')
+            return JsonResponse({'success':True})
         else:
-            messages.error(request, 'Oops! Something went wrong, please try again!')
+            return JsonResponse({'error':contactForm.errors})
     else:
         contactForm = ContactForm()
     
