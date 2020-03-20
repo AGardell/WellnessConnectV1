@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.gis.db import models
+
 
 # Create your models here.
 class WellnessProfessional(models.Model):
@@ -15,6 +17,8 @@ class WellnessProfessional(models.Model):
     bio = models.TextField(null=True, blank=True)
     profile_pic = models.ImageField(upload_to='prof/profile_pic/', null=True, blank=True)
     date_joined = models.DateField(auto_now_add=True)
+    location_latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    location_longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
 
     class Meta:
         db_table = '"wellness_prof"'
@@ -32,6 +36,7 @@ class WellnessProfessional(models.Model):
             return self.address_1 + " " + self.address_2 + " " + self.city + ", " + self.state + " " + self.zip
         else:
             return self.address_1 + " " + self.city + ", " + self.state + " " + self.zip
+
 
     def __str__(self):
         return self.getFullName

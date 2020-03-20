@@ -30,3 +30,8 @@
 .errorlist {
     color: red;
 }
+
+#wellness-prof-map { 
+    height: 400px;
+    width: 400px;
+}

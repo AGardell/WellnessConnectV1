@@ -1,28 +1,47 @@
 {% extends "./base.html" %}
 
+{% load search_custom_tags %}
+
 {% block title %}Professionals Found{% endblock title %}
 
 {% block content %}
 <h1 id='search-title'>Professional found near: {{ zip }}</h1>
 {% if professionals %}
-<ul>
-    <div class="row justify-content-center">
-        <div class="col-md-6">    
-            {% for prof in professionals %}
-            <ul class="list-group" id="list-tab" role="tablist">
-                <a href="{% url 'prof:detail' prof.id %}" id='search-result' class="list-group-item list-group-item-action">
-                    <p id='search-result-name'>{{ prof.getFullName }}</p>
-                    <p class='search-result-contents'>{{ prof.getFullAddress }}</p>
-                    <p class='search-result-contents'>{{ prof.specialties }}</p>
-                </a>
-            </ul>
-            {% endfor %}
+<div class="row justify-content-center">
+    <ul>
+        <div class="row justify-content-center">
+            <div class="col-md-12">    
+                {% for prof in professionals %}
+                <ul class="list-group" id="list-tab" role="tablist">
+                    <a href="{% url 'prof:detail' prof.id %}" id='search-result' class="list-group-item list-group-item-action">
+                        <p id='search-result-name'>{{ prof.getFullName }}</p>
+                        <p class='search-result-contents'>{{ prof.getFullAddress }}</p>
+                        <p class='search-result-contents'>{{ prof.specialties }}</p>
+                        <p class='search-result-distance'>{{ distances|get_item:prof.id }} miles</p>    
+                        <span class='prof-loc-lat' hidden>{{ prof.location_latitude }}</span>
+                        <span class='prof-loc-long' hidden>{{ prof.location_longitude }}</span>
+                    </a>
+                </ul>
+                {% endfor %}
+            </div>
         </div>
-    </div>    
-</ul>
+    </ul>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div id="wellness-prof-map"></div>
+        </div>
+    </div>  
+</div>  
 {% else %}
 <div class="row justify-content-center">
     <p>No professional could be found in your area</p>
 </div>
 {% endif %}
 {% endblock content %}
+
+{% block jsvariables %}
+<script>
+    var userLat = "{{ userLat }}"
+    var userLong = "{{ userLong }}"
+</script>
+{% endblock jsvariables %}

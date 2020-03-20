@@ -1,20 +1,3 @@
-// for ajax calls, obtain the crsf token by looping through cookies
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
 // Live Well, Connect Well fade
 $(document).ready(() => {
     $("#span-connect").fadeTo(1000, 1);
@@ -39,17 +22,6 @@ if ($('#send-message-modal').length > 0)
         ClearModal();
         $('#contact-prof-modal').modal('show');
     })
-}
-
-function ClearModal() {
-    $('#contact-prof-result-message').hide();
-    $('.form-group .form-control').val('');
-    ClearModalErrors();
-};
-
-function ClearModalErrors() {
-    $('.modal-error').html('');
-    $('#contact-prof-result-message').removeClass();
 }
 
 // Make AJAX request to send email to wellness professional
@@ -121,4 +93,60 @@ if($("#id_password, #id_retype_password").length > 0)
             $("#btnSearch").prop("disabled",false);
         }
     });
+}
+
+// setup map on the search page
+if (ElementExists("#wellness-prof-map"))
+{
+    var mymap = L.map('wellness-prof-map').setView([userLat, userLong], 12);
+    
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png', {
+        maxZoom: 20,
+        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+    }).addTo(mymap);
+
+    $(".list-group").each((idx, group) => {
+        var latitude = $(group).find("span")[0]
+        var longitude = $(group).find("span")[1]
+
+        L.marker([latitude.innerText, longitude.innerText]).addTo(mymap);
+    });
+}
+
+
+/*--------------------
+*** FUNCTIONS  ***
+----------------------*/
+
+// for ajax calls, obtain the crsf token by looping through cookies
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+function ElementExists(id) {
+    return ($(id).length > 0);
+}
+
+function ClearModal() {
+    $('#contact-prof-result-message').hide();
+    $('.form-group .form-control').val('');
+    ClearModalErrors();
+};
+
+function ClearModalErrors() {
+    $('.modal-error').html('');
+    $('#contact-prof-result-message').removeClass();
 }
