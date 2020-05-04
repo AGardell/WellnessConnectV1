@@ -24,9 +24,11 @@ def Search(request):
 
     zip = request.GET.get('zipcode')
 
-    #userLocation = geolocator.geocode(zip)
-    userLocationLatitude = 39.996160
-    userLocationLongitude = -74.947890
+    userLocation = geolocator.geocode(zip)
+    #userLocationLatitude = 39.996160
+    #userLocationLongitude = -74.947890
+    userLocationLatitude = userLocation.latitude
+    userLocationLongitude = userLocation.longitude
     userPnt = Point(userLocationLongitude,userLocationLatitude)
 
     profs = WellnessProfessional.objects.filter(

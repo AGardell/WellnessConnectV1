@@ -35,3 +35,26 @@
     height: 400px;
     width: 400px;
 }
+
+@media screen and (max-width: 575px)
+{
+    #span-connect {
+        font-size: 75px;
+        margin-right: 0;
+        opacity: 0;
+        text-align: center;
+    }
+
+    #zipcode-main {
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    #search-button-div {
+        justify-content: center;
+    }
+
+    #main-tag-line {
+        text-align: center;
+    }
+}

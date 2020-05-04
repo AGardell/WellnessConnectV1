@@ -20,8 +20,11 @@
     </head>
     <body>
         {% block navbar %}      
-        <nav class="navbar navbar-expand-lg">
-            <div class="collapse navbar-collapse">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-content-toggle" aria-controls="navbar-content-toggle" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-content-toggle">
                 <span class="navbar-brand">Wellness Connect</span>
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
@@ -83,9 +86,12 @@
                 <span id="span-connect">Connect Well.</span><span id="span-live">Live Well.</span>
             </div>
             <div class="row justify-content-center mt-3">
+                <h5 id="main-tag-line">Search for Wellness Professionals near you: </h5>
+            </div>
+            <div class="row justify-content-center mt-3">
                 <form id='navbar-main' class="form-inline" action="{% url 'search:searchprof' %}" method="get">
-                    <input type="text" class="search-input form-control" name="zipcode" id="zipcode" placeholder="Zipcode">
-                    <div class="col input-group-append">
+                    <input type="text" class="form-control" name="zipcode" id="zipcode-main" placeholder="Address, City, State, Zipcode">
+                    <div id="search-button-div" class="col input-group-append">
                         <button id="btnSearch" class="btn btn-outline-secondary" type="submit" id="button-addon2">Connect</button>
                     </div>
                 </form>
