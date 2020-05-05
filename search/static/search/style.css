@@ -1,11 +1,55 @@
-#span-connect {
-    margin-right: .5em;
-    font-size: 75px;
-    opacity: 0;
+body {
+    background-image: url('images/background-splash.jpg');
+    background-size: 300vh;
+    background-repeat: no-repeat;
+    background-position: 61% 5%;
 }
 
-#search-result {
-    margin-bottom: 10px;
+.navbar {
+    background-color: #eff6fc;
+    border-bottom: 9px solid #C7DCEE;
+}
+
+#navbar-content-toggle {
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+#navbar-content-toggle > .navbar-nav > .nav-item > a{
+    color: #447298;
+}
+
+#container-home-page > .col-sm-12 > #header-main-page {
+    color: #eff6fc;
+}
+
+#main-tag-line {
+    color: #eff6fc;
+    font-size: 2em;
+}
+
+#zipcode-main {
+    font-size: 1.5em;  
+    border-color: #447298;  
+    color: #447298;
+}
+
+.button-wellness {
+    background-color: #eff6fc;
+    color: #447298;
+    border-color: #447298;   
+}
+
+.button-wellness:hover {
+    background-color: #447298;
+    color: #eff6fc;
+    border-color: #447298;      
+}
+
+#span-connect {
+    margin-right: .3em;
+    font-size: 75px;
+    opacity: 0;
 }
 
 #search-title {
@@ -27,26 +71,71 @@
     margin-bottom: 0;
 }
 
+.search-result-distance {
+    margin-bottom: 0;
+    font-style: italic
+}
+
 .errorlist {
     color: red;
 }
 
+.messages {
+    padding: 10px;
+}
+
 #wellness-prof-map { 
-    height: 400px;
-    width: 400px;
+    height: 100%;
+    width: 100%;
+}
+
+#search-result-column {
+    max-height: 70vh;
+    padding-right: 0;
+}
+
+#search-result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#search-result-txt-block {
+    margin-right: 10px;
+}
+
+#prof-image {
+    height: 110px;
+    width: 120px;
 }
 
 @media screen and (max-width: 575px)
 {
+    #header-main-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     #span-connect {
-        font-size: 75px;
+        font-size: 50px;
         margin-right: 0;
         opacity: 0;
         text-align: center;
     }
 
+    #span-live {
+        font-size: 50px;
+        opacity: 0;    
+    }
+
+    #main-tag-line {
+        margin-left: 10px;
+        margin-right: 10px;
+        font-size: 1.5em;
+    }
+
     #zipcode-main {
-        margin-bottom: 10px;
         text-align: center;
     }
 
@@ -56,5 +145,14 @@
 
     #main-tag-line {
         text-align: center;
+    }
+
+    #search-result-column {
+        max-height: 70vh;
+        padding-right: 15px;
+    }
+
+    #navbar-search {
+        flex-flow: row;
     }
 }

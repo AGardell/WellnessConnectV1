@@ -13,5 +13,18 @@
 }
 
 #signup-form {
-    width: 50%;
+    width: 65%;
+}
+
+#container-home-page > .row > p {
+    color: #eff6fc;
+    font-size: 2em;
+}
+
+@media screen and (max-width: 575px)
+{
+    #container-home-page > .row > p {
+        text-align: center;
+    }
+    
 }

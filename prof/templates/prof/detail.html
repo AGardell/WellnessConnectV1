@@ -10,17 +10,17 @@
 <div id="contact-prof-success-message" role="alert">  
 </div>
 <div id="prof-image-column" class="row mt-4">
-    <div class="col-6">
-        <h1>{{ prof.getFullName }}</h1>
+    <div class="col-sm-6">
+        <h1 id="prof-full-name">{{ prof.getFullName }}</h1>
         <p>{{ prof.getFullAddress }}</p>
         <p>{{ prof.specialties }}</p>
         <p class="detail-text">{{ prof.credentials }}</p>
         <p class="detail-text">{{ prof.bio }}</p>
     </div>
-    <div class="col-6">
+    <div class="col-sm-6 pb-3">
         {% if prof.profile_pic %}
         <div class="row">
-            <img id="prof-image" src="{{ prof.profile_pic.url }}" alt="Image not found." class="img-fluid img-thumbnail mx-auto d-block">
+            <img id="prof-image-detail" src="{{ prof.profile_pic.url }}" alt="Image not found." class="img-fluid img-thumbnail mx-auto d-block">
         </div>
         {% endif %}
         <div class="row d-flex justify-content-center">
@@ -57,7 +57,7 @@
                       <p id='error-email' class='modal-error'>{{ error }}</p>
                   </div>
                   <div class="form-group">
-                    {{ contactForm.message|add_class:"form-control"|attr:"placeholder:Enter your message..." }}
+                    {{ contactForm.message|add_class:"form-control"|attr:"placeholder:Message" }}
                       <p id='error-message' class='modal-error'>{{ error }}</p>
                   </div>                                       
                 </form>

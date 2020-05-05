@@ -1,4 +1,6 @@
 import geopy
+import operator
+
 from geopy.geocoders import Nominatim
 from geopy import distance
 
@@ -34,25 +36,17 @@ def Search(request):
     profs = WellnessProfessional.objects.filter(
         Q(location_latitude__lte=userLocationLatitude + 1) | Q(location_latitude__gte=userLocationLatitude - 1), 
         Q(location_longitude__lte=userLocationLongitude + 1) | Q(location_longitude__gte=userLocationLongitude - 1)
-    ).annotate(distance_lat=Abs(Abs('location_latitude') - Abs(userLocationLatitude))).annotate(distance_long=Abs(Abs('location_longitude') - Abs(userLocationLongitude))
-    ).annotate(sum_of_distance=F('distance_lat') + F('distance_long')
-    ).order_by('sum_of_distance')
-
-    distance_dict = {}
-
+    )
 
     for prof in profs:
-        distance_dict[prof.id] = round(Decimal(distance.distance((prof.location_latitude, prof.location_longitude), (userLocationLatitude,userLocationLongitude)).miles), 2)
-
-    context = {'professionals': profs, 'distances': distance_dict, 'zip': zip, 'userLat': userLocationLatitude, 'userLong': userLocationLongitude}
+        prof.miles = round(Decimal(distance.distance((prof.location_latitude, prof.location_longitude), (userLocationLatitude,userLocationLongitude)).miles), 2)
     
-    #userLocation = geolocator.geocode(zip)
-    # profs = WellnessProfessional.objects.filter(
-    #     Q(location_latitude__lte=userLocation.latitude + 1) | Q(location_latitude__gte=userLocation.latitude - 1), 
-    #     Q(location_longitude__lte=userLocation.longitude + 1) | Q(location_longitude__gte=userLocation.longitude - 1)
-    # ).annotate(distance_from_user=distance.distance((userLocation.latitude, userLocation.longitude),(Count('location_latitude'), Count('location_longitude'))).miles)
-    #.annotate(distance_from_user=distance.distance((userLocation.latitude, userLocation.longitude),(location_latitude, location_longitude)).miles)
-    #profs = profs.annotate(distance_from_user=distance.distance((userLocation.latitude, userLocation.longitude),(location_latitude, location_longitude)).miles)
+    # need to fix magic number here!
+    profs_sorted_filters = list(filter(lambda prof: prof.miles < 1000, sorted(profs, key=operator.attrgetter("miles"))))
 
-    #context = {'professionals': profs, 'zip': zip, 'userLat': userLocation.latitude, 'userLong': userLocation.longitude}
+    context = {'professionals': profs_sorted_filters, 
+        'zip': zip, 
+        'userLat': userLocationLatitude, 
+        'userLong': userLocationLongitude}
+    
     return render(request, 'search/search.html', context)

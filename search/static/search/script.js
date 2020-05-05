@@ -13,6 +13,16 @@ else if ($('navbar-search').is(':hidden')) {
     $('$navbar-search').show();
 }
 
+// Display sign in button if user is not on sign in page or not on login page
+if ($('#btnLogin').length > 0 || $('#btnSignUp').length > 0)
+{
+    $('#nav-sign-up').hide();
+}
+else if ($('nav-sign-up').is(':hidden')) {
+    $('$nav-sign-up').show();
+}
+
+
 // overwrite modal open functionality
 // clear the message if one exists
 if ($('#send-message-modal').length > 0)
@@ -105,7 +115,7 @@ if (ElementExists("#wellness-prof-map"))
         attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
     }).addTo(mymap);
 
-    $(".list-group").each((idx, group) => {
+    $(".list-group-item").each((idx, group) => {
         var latitude = $(group).find("span")[0]
         var longitude = $(group).find("span")[1]
 

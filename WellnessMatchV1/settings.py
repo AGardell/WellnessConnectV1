@@ -142,7 +142,7 @@ STATIC_URL = '/static/'
 
 # Media files (files uploaded by user)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 
 # Crispy form template
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

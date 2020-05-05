@@ -1,13 +1,28 @@
+#navbar-content-toggle {
+    justify-content: space-between;
+    align-items: baseline;
+}
+
 .detail-text {
     white-space: pre-wrap;
 }
 
-#prof-image {
+#prof-image-detail {
     max-width: 70%;
+    margin-top: 15px;
 }
 
 #prof-image-column {
-    align-items: center;
+    align-items: flex-start;
+}
+
+#prof-full-name {
+    margin-top: 15px;
+}
+
+#contact-form-submit {
+    width: 100px;
+    margin: auto auto 20px auto;
 }
 
 .modal-error {
