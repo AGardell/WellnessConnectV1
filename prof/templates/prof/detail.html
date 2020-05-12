@@ -11,23 +11,41 @@
 </div>
 <div id="prof-image-column" class="row mt-4">
     <div class="col-sm-6">
-        <h1 id="prof-full-name">{{ prof.getFullName }}</h1>
-        <p>{{ prof.getFullAddress }}</p>
+      <section class="prof-detail-section">
+        <h2 id="prof-full-name">{{ prof.getFullName }}</h2>
+        <p>
+          {{ prof.getFullAddress }} <a href="http://maps.google.com/?q={{ prof.getFullAddress }}"><i class="fas fa-directions"></i></a>
+        </p>        
+        <div id="wellness-prof-detail-map"></div>
+        <span id="prof-detail-latitude" class='prof-loc-lat' hidden>{{ prof.location_latitude }}</span>
+        <span id="prof-detail-longitude" class='prof-loc-long' hidden>{{ prof.location_longitude }}</span>
+      </section>
+      <section class="prof-detail-section">
+        <h3>Specialties</h3>
         <p>{{ prof.specialties }}</p>
+      </section>
+      <section class="prof-detail-section">
+        <h3>Education</h3>
         <p class="detail-text">{{ prof.credentials }}</p>
+      </section>      
+      <section class="prof-detail-section">
+        <h3>Mission Statement</h3>
         <p class="detail-text">{{ prof.bio }}</p>
+      </section>        
     </div>
     <div class="col-sm-6 pb-3">
-        {% if prof.profile_pic %}
-        <div class="row">
-            <img id="prof-image-detail" src="{{ prof.profile_pic.url }}" alt="Image not found." class="img-fluid img-thumbnail mx-auto d-block">
-        </div>
-        {% endif %}
-        <div class="row d-flex justify-content-center">
-            <button id="send-message-modal" class="btn btn-primary mt-3">
-                Contact Me
-            </button>
-        </div>
+        <section class="prof-detail-section pt-2 pb-2">
+          {% if prof.profile_pic %}
+          <div class="row">
+              <img id="prof-image-detail" src="{{ prof.profile_pic.url }}" alt="Image not found." class="img-fluid img-thumbnail mx-auto d-block">
+          </div>
+          {% endif %}
+          <div class="row d-flex justify-content-center">
+              <button id="send-message-modal" class="btn btn-primary mt-3">
+                  Contact Me
+              </button>
+          </div>
+        </section>
     </div>
     <div class="modal fade" id="contact-prof-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
