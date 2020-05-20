@@ -26,6 +26,7 @@
 .prof-detail-section {
     background-color: #eff6fcde;
     border-radius: 5px;
+    margin-bottom: 1rem;
 }
 
 .prof-detail-section > h2, .prof-detail-section > h3 {
@@ -46,4 +47,37 @@
     height: 300px;
     margin-bottom: 1rem;
     border-radius: 5px;
+}
+
+section > ul > li:last-child {
+    padding-bottom: 10px;
+}
+
+table {
+    width: 100%;
+}
+
+.first-cell {
+    padding-left: 10px;
+}
+
+.last-cell {
+    padding-right: 10px;
+}
+
+table > tbody > tr:last-child > td {
+    padding-bottom: 10px;
+}
+
+#hours-of-operation > p {
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+@media screen and (max-width: 575px)
+{
+    tbody {
+        font-size: .7em;
+    }
 }

@@ -10,7 +10,7 @@
 <div id="contact-prof-success-message" role="alert">  
 </div>
 <div id="prof-image-column" class="row mt-4">
-    <div class="col-sm-6">
+    <div class="col-sm-8">
       <section class="prof-detail-section">
         <h2 id="prof-full-name">{{ prof.getFullName }}</h2>
         <p>
@@ -21,19 +21,34 @@
         <span id="prof-detail-longitude" class='prof-loc-long' hidden>{{ prof.location_longitude }}</span>
       </section>
       <section class="prof-detail-section">
-        <h3>Specialties</h3>
-        <p>{{ prof.specialties }}</p>
-      </section>
-      <section class="prof-detail-section">
-        <h3>Education</h3>
-        <p class="detail-text">{{ prof.credentials }}</p>
-      </section>      
-      <section class="prof-detail-section">
         <h3>Mission Statement</h3>
         <p class="detail-text">{{ prof.bio }}</p>
       </section>        
+      <section class="prof-detail-section">
+        <h3>Education</h3>
+        {% if prof.educationcredential_set.count > 0 %}
+          <table>
+            <tbody>
+              <tr>
+                <th class='first-cell'>School</th>
+                <th>Degree</th>
+                <th>Major</th>
+                <th class='last-cell'>Year</th>
+              </tr>
+              {% for educationcredential in prof.educationcredential_set.all %}
+              <tr>
+                <td class='first-cell'>{{ educationcredential.school }}</td>
+                <td>{{ educationcredential.degree }}</td>
+                <td>{{ educationcredential.major }}</td>
+                <td class='last-cell'>{{ educationcredential.year_graduated }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+         {% endif %}
+      </section>            
     </div>
-    <div class="col-sm-6 pb-3">
+    <div class="col-sm-4 pb-3">
         <section class="prof-detail-section pt-2 pb-2">
           {% if prof.profile_pic %}
           <div class="row">
@@ -41,11 +56,29 @@
           </div>
           {% endif %}
           <div class="row d-flex justify-content-center">
+              {% if request.user.is_authenticated %}
               <button id="send-message-modal" class="btn btn-primary mt-3">
-                  Contact Me
+                <i class="far fa-envelope"></i> Contact Me
               </button>
+              {% else %}
+              <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-toggle="tooltip" data-placement="top" title="Please sign in to contact our Wellness Professionals!">
+                <button id="send-message-modal" style="pointer-events: none;" class="btn btn-primary mt-3" disabled>
+                  <i class="far fa-envelope"></i> Contact Me
+                </button>
+              </span>
+              {% endif %}
           </div>
-        </section>
+        </section>             
+        <section class="prof-detail-section">
+          <h3>Specialties</h3>
+          {% if prof.specialty_set.count > 0 %}
+            <ul>
+                {% for specialty in prof.specialty_set.all %}
+                    <li class='search-result-contents'>{{ specialty.specialty }}</li>
+                {% endfor %}
+            </ul>
+           {% endif %}
+        </section>         
     </div>
     <div class="modal fade" id="contact-prof-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">

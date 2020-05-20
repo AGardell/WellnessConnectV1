@@ -4,6 +4,7 @@ body {
     background-repeat: no-repeat;
     background-position: 61% 5%;
     background-attachment: fixed;
+    padding-top: 5em;
 }
 
 .navbar {

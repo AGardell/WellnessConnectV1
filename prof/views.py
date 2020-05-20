@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 from .forms import ContactForm
 
-from .models import WellnessProfessional
+from .models import WellnessProfessional, Specialty, EducationCredential, License
 # Create your views here.
 def Detail(request, prof_id):
     professional = WellnessProfessional.objects.get(id=prof_id)

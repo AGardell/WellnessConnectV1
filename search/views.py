@@ -16,7 +16,7 @@ from django.http import HttpResponse
 from decimal import *
 
 
-from prof.models import WellnessProfessional
+from prof.models import WellnessProfessional, Specialty
 # Create your views here.
 def Index(request):
     return render(request, 'search/base.html')
@@ -24,9 +24,9 @@ def Index(request):
 def Search(request):
     geolocator = Nominatim(user_agent='wellnessmatchv1')
 
-    zip = request.GET.get('zipcode')
+    zip_code = request.GET.get('zipcode')
 
-    userLocation = geolocator.geocode(zip)
+    userLocation = geolocator.geocode(zip_code)
     #userLocationLatitude = 39.996160
     #userLocationLongitude = -74.947890
     userLocationLatitude = userLocation.latitude
@@ -36,17 +36,17 @@ def Search(request):
     profs = WellnessProfessional.objects.filter(
         Q(location_latitude__lte=userLocationLatitude + 1) | Q(location_latitude__gte=userLocationLatitude - 1), 
         Q(location_longitude__lte=userLocationLongitude + 1) | Q(location_longitude__gte=userLocationLongitude - 1)
-    )
+    )  
 
     for prof in profs:
         prof.miles = round(Decimal(distance.distance((prof.location_latitude, prof.location_longitude), (userLocationLatitude,userLocationLongitude)).miles), 2)
     
-    # need to fix magic number here!
+    # TODO need to fix magic number here!
     profs_sorted_filters = list(filter(lambda prof: prof.miles < 1000, sorted(profs, key=operator.attrgetter("miles"))))
 
     context = {'professionals': profs_sorted_filters, 
-        'zip': zip, 
+        'zip': zip_code, 
         'userLat': userLocationLatitude, 
-        'userLong': userLocationLongitude}
+        'userLong': userLocationLongitude}    
     
     return render(request, 'search/search.html', context)
