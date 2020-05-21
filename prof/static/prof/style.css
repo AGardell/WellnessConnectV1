@@ -75,6 +75,11 @@ table > tbody > tr:last-child > td {
     padding-bottom: 0px;
 }
 
+.list-no-style {
+    list-style: none;
+    padding-left: 10px;
+}
+
 @media screen and (max-width: 575px)
 {
     tbody {

@@ -13,9 +13,10 @@
     <div class="col-sm-8">
       <section class="prof-detail-section">
         <h2 id="prof-full-name">{{ prof.getFullName }}</h2>
-        <p>
-          {{ prof.getFullAddress }} <a href="http://maps.google.com/?q={{ prof.getFullAddress }}"><i class="fas fa-directions"></i></a>
-        </p>        
+        <ul class="list-no-style">
+          <li>{{ prof.profession }}</li>
+          <li>{{ prof.getFullAddress }} <a href="http://maps.google.com/?q={{ prof.getFullAddress }}"><i class="fas fa-directions"></i></a></li>
+        </ul>      
         <div id="wellness-prof-detail-map"></div>
         <span id="prof-detail-latitude" class='prof-loc-lat' hidden>{{ prof.location_latitude }}</span>
         <span id="prof-detail-longitude" class='prof-loc-long' hidden>{{ prof.location_longitude }}</span>
@@ -46,7 +47,30 @@
             </tbody>
           </table>
          {% endif %}
-      </section>            
+      </section>  
+      <section class="prof-detail-section">
+        <h3>Licensure</h3>
+        {% if prof.license_set.count > 0 %}
+          <table>
+            <tbody>
+              <tr>
+                <th class='first-cell'>License Name</th>
+                <th>Number</th>
+                <th>State</th>
+                <th class='last-cell'>Year</th>
+              </tr>
+              {% for license in prof.license_set.all %}
+              <tr>
+                <td class='first-cell'>{{ license.license_name }}</td>
+                <td>{{ license.license_number }}</td>
+                <td>{{ license.state }}</td>
+                <td class='last-cell'>{{ license.year }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+         {% endif %}
+      </section>                
     </div>
     <div class="col-sm-4 pb-3">
         <section class="prof-detail-section pt-2 pb-2">

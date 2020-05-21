@@ -4,6 +4,7 @@ from django.contrib.gis.db import models
 
 # Create your models here.
 class WellnessProfessional(models.Model):
+    profession = models.CharField(max_length=255)
     title = models.CharField(max_length=255, null=True, blank=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
